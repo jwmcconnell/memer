@@ -82,3 +82,21 @@ describe('PUT meme route', () => {
       });
   });
 });
+
+describe('DELETE meme Route', () => {
+  it('Deletes and returns the deleted meme', async() => {
+    const { _id, top, bottom, image } = await getMeme();
+    return request(app)
+      .delete(`/api/v1/memes/${_id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id,
+          top,
+          bottom,
+          image,
+          __v: 0
+        });
+        expect(res.status).toEqual(200);
+      });
+  });
+});
