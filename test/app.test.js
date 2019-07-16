@@ -59,3 +59,26 @@ describe('POST meme route', () => {
       });
   });
 });
+
+describe('PUT meme route', () => {
+  it('Updates and returns a meme', async() => {
+    const { _id } = await getMeme();
+    return request(app)
+      .put(`/api/v1/memes/${_id}`)
+      .send({
+        top: 'top-test-update',
+        bottom: 'bottom-test-update',
+        image: 'https://imgflip.com/s/meme/Roll-Safe-Think-About-It.jpg'
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          top: 'top-test-update',
+          bottom: 'bottom-test-update',
+          image: 'https://imgflip.com/s/meme/Roll-Safe-Think-About-It.jpg',
+          __v: 0
+        });
+        expect(res.status).toEqual(200);
+      });
+  });
+});
