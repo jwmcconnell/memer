@@ -29,3 +29,13 @@ describe('POST record route', () => {
       });
   });
 });
+
+describe('GET records route', () => {
+  it('returns all records', () => {
+    return request(app)
+      .get('/api/v1/records')
+      .then(res => {
+        expect(res.body).toEqual(expect.any(Array));
+      });
+  });
+});
