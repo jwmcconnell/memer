@@ -1,4 +1,4 @@
-require('./dataHelpers');
+const { getMeme } = require('./dataHelpers');
 const request = require('supertest');
 const app = require('../lib/app');
 
@@ -15,6 +15,25 @@ describe('GET memes route', () => {
           image: expect.any(String),
           __v: 0
         });
+        expect(res.status).toEqual(200);
+      });
+  });
+});
+
+describe('GET meme by id route', () => {
+  it('returns a meme by its meme', async() => {
+    const { _id } = await getMeme();
+    return request(app)
+      .get(`/api/v1/memes/${_id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          top: expect.any(String),
+          bottom: expect.any(String),
+          image: expect.any(String),
+          __v: 0
+        });
+        expect(res.status).toEqual(200);
       });
   });
 });
