@@ -2,6 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const seedData = require('./seedData');
 const Meme = require('../lib/models/Meme');
+const Record = require('../lib/models/Record');
 
 const connect = require('../lib/utils/connect');
 
@@ -29,6 +30,16 @@ const getMeme = () => {
     });
 };
 
+const getRecord = () => {
+  return Record
+    .findOne()
+    .then(record => {
+      return JSON.parse(JSON.stringify(record));
+    });
+};
+
+
 module.exports = {
-  getMeme
+  getMeme,
+  getRecord
 };
