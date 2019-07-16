@@ -70,7 +70,7 @@ describe('GET record by id route', () => {
   });
 });
 
-describe('PUT record Route', () => {
+describe('PUT record route', () => {
   it('Updates and returns the updated record', async() => {
     const { _id } = await getRecord();
     return request(app)
@@ -98,3 +98,23 @@ describe('PUT record Route', () => {
   });
 });
 
+describe('DELETE record route', () => {
+  it('Deletes a record and returns the deleted record', async() => {
+    const { _id } = await getRecord();
+    return request(app)
+      .delete(`/api/v1/records/${_id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          title: expect.any(String),
+          artist: expect.any(String),
+          year: expect.any(Number),
+          color: expect.any(String),
+          rpm: expect.any(String),
+          size: expect.any(Number),
+          __v: 0
+        });
+        expect(res.status).toEqual(200);
+      });
+  });
+});
